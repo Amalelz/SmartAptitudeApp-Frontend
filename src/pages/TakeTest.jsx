@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useSearchParams } from "react-router-dom";
 import axios from "axios";
 import { API_ENDPOINTS } from "../config/api";
 
 const TakeTest = () => {
   const { testId } = useParams();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const difficulty = searchParams.get("difficulty") || "medium";
   
   const [test, setTest] = useState(null);
   const [questions, setQuestions] = useState([]);
@@ -17,7 +19,7 @@ const TakeTest = () => {
 
   useEffect(() => {
     fetchTestData();
-  }, [testId]);
+  }, [testId, difficulty]);
 
   useEffect(() => {
     if (timeRemaining > 0) {
@@ -36,7 +38,7 @@ const TakeTest = () => {
 
   const fetchTestData = async () => {
     try {
-      const response = await axios.get(`${API_ENDPOINTS.TESTS}/${testId}`);
+      const response = await axios.get(`${API_ENDPOINTS.TESTS}/${testId}?difficulty=${difficulty}`);
       
       console.log("Test data received:", response.data); // Debug log
       
@@ -174,10 +176,19 @@ const TakeTest = () => {
             <h1 className="text-xl font-bold text-gray-800">{test?.name}</h1>
             <p className="text-sm text-gray-500">{test?.description}</p>
           </div>
-          <div className={`px-4 py-2 rounded-lg font-bold ${
-            timeRemaining < 300 ? 'bg-red-100 text-red-700' : 'bg-blue-100 text-blue-700'
-          }`}>
-            ⏱️ {formatTime(timeRemaining)}
+          <div className="flex items-center gap-3">
+            <span className={`px-4 py-2 rounded-lg text-sm font-semibold ${
+              difficulty === 'easy' ? 'bg-green-100 text-green-700' :
+              difficulty === 'hard' ? 'bg-red-100 text-red-700' :
+              'bg-yellow-100 text-yellow-700'
+            }`}>
+              {difficulty.charAt(0).toUpperCase() + difficulty.slice(1)}
+            </span>
+            <div className={`px-4 py-2 rounded-lg font-bold ${
+              timeRemaining < 300 ? 'bg-red-100 text-red-700' : 'bg-blue-100 text-blue-700'
+            }`}>
+              ⏱️ {formatTime(timeRemaining)}
+            </div>
           </div>
         </div>
       </div>

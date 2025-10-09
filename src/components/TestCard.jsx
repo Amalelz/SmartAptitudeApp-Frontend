@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Button, Badge } from "./UI";
 
 const TestCard = ({ test }) => {
   const navigate = useNavigate();

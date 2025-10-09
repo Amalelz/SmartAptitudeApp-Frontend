@@ -2,14 +2,13 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { API_ENDPOINTS } from "../config/api";
-import Sidebar from "../components/Sidebar";
-import Navbar from "../components/Navbar";
+import Sidebar from "../components/common/Sidebar";
+import Navbar from '../components/common/Navbar';
 
 const Profile = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-
   useEffect(() => {
     fetchUserProfile();
   }, []);
@@ -66,15 +65,15 @@ const Profile = () => {
             {/* Stats */}
             <div className="grid grid-cols-3 gap-4 pt-6 border-t">
               <div className="text-center">
-                <div className="text-3xl font-bold text-indigo-600">0</div>
+                <div className="text-3xl font-bold text-indigo-600">{user?.testsTaken || 0}</div>
                 <div className="text-sm text-gray-500">Tests Taken</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-green-600">0%</div>
+                <div className="text-3xl font-bold text-green-600">{user?.avgScore || 0}%</div>
                 <div className="text-sm text-gray-500">Avg Score</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-purple-600">0</div>
+                <div className="text-3xl font-bold text-purple-600">{user?.testsTaken ? user.testsTaken * 10 : 0}</div>
                 <div className="text-sm text-gray-500">Points</div>
               </div>
             </div>

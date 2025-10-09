@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Import our unified design system */
+@import './styles/designSystem.css';
+
 @layer base {
   body {
     @apply antialiased;

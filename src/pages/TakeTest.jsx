@@ -69,7 +69,7 @@ const TakeTest = () => {
     try {
       const token = localStorage.getItem("token");
       
-      // Save result to database
+      // Save result to database with enhanced scoring
       const response = await axios.post(
         API_ENDPOINTS.RESULTS,
         {
@@ -80,6 +80,7 @@ const TakeTest = () => {
           percentage: parseFloat(percentage),
           passed,
           timeTaken,
+          totalTime: test.duration * 60, // Total time allowed in seconds
           answers: Object.fromEntries(Object.entries(answers)),
           questions,
           correctAnswers,
@@ -87,7 +88,7 @@ const TakeTest = () => {
         { headers: { "x-auth-token": token } }
       );
 
-      // Navigate to results with the saved result ID
+      // Navigate to results with enhanced scoring data
       navigate("/results", { 
         state: { 
           score, 
@@ -97,6 +98,7 @@ const TakeTest = () => {
           passed,
           timeTaken,
           resultId: response.data.resultId,
+          enhancedScoring: response.data.enhancedScoring,
           answers,
           questions,
           correctAnswers 

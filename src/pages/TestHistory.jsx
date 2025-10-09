@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { API_ENDPOINTS } from "../config/api";
-import Sidebar from "../components/Sidebar";
-import Navbar from "../components/Navbar";
+import Sidebar from "../components/common/Sidebar";
+import Navbar from '../components/common/Navbar';
 
 const TestHistory = () => {
   const navigate = useNavigate();
@@ -130,12 +130,28 @@ const TestHistory = () => {
                             {result.percentage}%
                           </span>
                         </div>
+                        {result.totalPoints && (
+                          <div className="flex items-center gap-2">
+                            <span className="text-gray-600">Points:</span>
+                            <span className="font-bold text-purple-600">
+                              {result.totalPoints}
+                            </span>
+                          </div>
+                        )}
                         <div className="flex items-center gap-2">
                           <span className="text-gray-600">Time:</span>
                           <span className="font-bold text-gray-800">
                             {formatTime(result.timeTaken)}
                           </span>
                         </div>
+                        {result.efficiency && (
+                          <div className="flex items-center gap-2">
+                            <span className="text-gray-600">Efficiency:</span>
+                            <span className="font-bold text-green-600">
+                              {result.efficiency} pts/min
+                            </span>
+                          </div>
+                        )}
                       </div>
                     </div>
 

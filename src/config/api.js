@@ -19,6 +19,15 @@ export const API_ENDPOINTS = {
   
   // Admin endpoints
   ADMIN: `${API_BASE_URL}/api/admin`,
+  ADMIN_STATS: `${API_BASE_URL}/api/admin/stats`,
+  ADMIN_USERS: `${API_BASE_URL}/api/admin/users`,
+  ADMIN_RESULTS: `${API_BASE_URL}/api/admin/results`,
+  
+  // Question management endpoints
+  ADMIN_QUESTIONS: `${API_BASE_URL}/api/admin/questions`,
+  ADMIN_QUESTION_STATS: `${API_BASE_URL}/api/admin/questions/stats`,
+  ADMIN_QUESTION_BY_ID: (id) => `${API_BASE_URL}/api/admin/questions/${id}`,
+  ADMIN_QUESTIONS_BULK: `${API_BASE_URL}/api/admin/questions/bulk`,
 };
 
 export default API_BASE_URL;

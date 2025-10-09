@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 const Results = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { score, total, testName, resultId, answers, questions, correctAnswers } = location.state || { 
+  const { score, total, testName, resultId, enhancedScoring, answers, questions, correctAnswers } = location.state || { 
     score: 0, 
     total: 0, 
     testName: "Test" 
@@ -77,6 +77,75 @@ const Results = () => {
             </p>
           </div>
         </div>
+
+        {/* Enhanced Scoring Breakdown */}
+        {enhancedScoring && (
+          <div className="bg-white rounded-3xl shadow-2xl p-8 mb-6 animate-scale-in">
+            <h3 className="text-2xl font-bold text-gray-800 mb-6 text-center">
+              🏆 Enhanced Score Breakdown
+            </h3>
+            
+            {/* Points Summary */}
+            <div className="bg-gradient-to-r from-purple-50 to-indigo-50 rounded-2xl p-6 mb-6">
+              <div className="flex justify-between items-center mb-4">
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-purple-600">{enhancedScoring.totalPoints}</div>
+                  <div className="text-sm text-gray-600">Total Points</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-indigo-600">{enhancedScoring.grade}</div>
+                  <div className="text-sm text-gray-600">Grade</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-green-600">{enhancedScoring.rank}</div>
+                  <div className="text-sm text-gray-600">Rank</div>
+                </div>
+              </div>
+            </div>
+
+            {/* Points Breakdown */}
+            <div className="grid grid-cols-2 gap-4 mb-6">
+              <div className="bg-blue-50 rounded-xl p-4">
+                <div className="text-2xl font-bold text-blue-600">{enhancedScoring.basePoints}</div>
+                <div className="text-sm text-gray-600">Base Points</div>
+                <div className="text-xs text-gray-500">Correct answers</div>
+              </div>
+              <div className="bg-orange-50 rounded-xl p-4">
+                <div className="text-2xl font-bold text-orange-600">{enhancedScoring.difficultyBonus}</div>
+                <div className="text-sm text-gray-600">Difficulty Bonus</div>
+                <div className="text-xs text-gray-500">Hard questions</div>
+              </div>
+              <div className="bg-green-50 rounded-xl p-4">
+                <div className="text-2xl font-bold text-green-600">{enhancedScoring.timeBonus}</div>
+                <div className="text-sm text-gray-600">Speed Bonus</div>
+                <div className="text-xs text-gray-500">{enhancedScoring.timeEfficiency}% efficiency</div>
+              </div>
+              <div className="bg-purple-50 rounded-xl p-4">
+                <div className="text-2xl font-bold text-purple-600">{enhancedScoring.streakBonus}</div>
+                <div className="text-sm text-gray-600">Streak Bonus</div>
+                <div className="text-xs text-gray-500">Max {enhancedScoring.maxStreak} consecutive</div>
+              </div>
+            </div>
+
+            {/* Performance Metrics */}
+            <div className="bg-gray-50 rounded-xl p-4">
+              <div className="grid grid-cols-3 gap-4 text-center">
+                <div>
+                  <div className="text-lg font-bold text-gray-700">{enhancedScoring.efficiency}</div>
+                  <div className="text-xs text-gray-500">Points/Min</div>
+                </div>
+                <div>
+                  <div className="text-lg font-bold text-gray-700">{enhancedScoring.maxStreak}</div>
+                  <div className="text-xs text-gray-500">Best Streak</div>
+                </div>
+                <div>
+                  <div className="text-lg font-bold text-gray-700">{Math.round((enhancedScoring.totalPoints / enhancedScoring.maxPossiblePoints) * 100)}%</div>
+                  <div className="text-xs text-gray-500">Max Potential</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Actions */}
         <div className="flex gap-4 justify-center">

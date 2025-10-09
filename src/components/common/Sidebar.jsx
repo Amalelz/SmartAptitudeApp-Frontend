@@ -11,7 +11,7 @@ const Sidebar = () => {
   ];
 
   return (
-    <div className="w-64 h-screen bg-gradient-to-b from-indigo-900 via-indigo-800 to-purple-900 text-white flex flex-col shadow-2xl">
+    <div className="w-64 min-h-screen h-full bg-gradient-to-b from-indigo-900 via-indigo-800 to-purple-900 text-white flex flex-col shadow-2xl sticky top-0">
       {/* Logo Section */}
       <div className="p-6 border-b border-indigo-700">
         <div className="flex items-center gap-3">
